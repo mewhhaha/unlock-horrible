@@ -1,0 +1,37 @@
+{
+  "name": "@workers/user",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "types": "dist/worker.d.ts",
+  "scripts": {
+    "upload": "wrangler deploy --name authfordev-user",
+    "start": "wrangler dev",
+    "test": "vitest",
+    "build": "tsc -p tsconfig.build.json",
+    "logs": "wrangler tail authfordev-user",
+    "routes": "little-worker routes",
+    "d1-local": "wrangler d1 execute d1-authfordev --local --file=./schema.sql",
+    "d1-remote": "wrangler d1 execute d1-authfordev --file=./schema.sql"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240512.0",
+    "@eslint/js": "^9.3.0",
+    "@packages/jwt": "workspace:^",
+    "@passwordless-id/webauthn": "^1.6.1",
+    "@types/invariant": "^2.2.37",
+    "@types/node": "^20.12.12",
+    "arktype": "1.0.29-alpha",
+    "eslint": "^9.3.0",
+    "invariant": "^2.2.4",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.11.0",
+    "vitest": "1.5.0",
+    "wrangler": "3.57.0"
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "@swc/cli": "^0.3.12"
+  }
+}

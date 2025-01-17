@@ -1,0 +1,26 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "pkeysh"
+main = "main.tsx"
+compatibility_date = "2024-10-18"
+compatibility_flags = ["nodejs_compat"]
+assets = { directory = "./dist/assets", binding = "ASSETS" }
+
+[[durable_objects.bindings]]
+name = "OBJECT_PASSKEY"
+class_name = "DurableObjectPasskey"
+
+[[durable_objects.bindings]]
+name = "OBJECT_USER"
+class_name = "DurableObjectUser"
+
+[[durable_objects.bindings]]
+name = "OBJECT_CHALLENGE"
+class_name = "DurableObjectChallenge"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = [
+    "DurableObjectPasskey",
+    "DurableObjectUser",
+    "DurableObjectChallenge",
+]

@@ -1,0 +1,33 @@
+{
+  "name": "@mewhhaha/htmx-router",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "bin": {
+    "fs-routes": "./src/fs-routes/routes.mts"
+  },
+  "exports": {
+    ".": {
+      "import": "./src/router.mts",
+      "types": "./src/router.mts"
+    },
+    "./types": {
+      "import": "./src/types.mts",
+      "types": "./src/types.mts"
+    },
+    "./jsx-runtime": {
+      "import": "./src/runtime/jsx-runtime.mts",
+      "types": "./src/runtime/jsx-runtime.mts"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241106.0",
+    "@types/node": "^22.9.0",
+    "typescript": "^5.5.2",
+    "vitest": "^2.1.4"
+  }
+}

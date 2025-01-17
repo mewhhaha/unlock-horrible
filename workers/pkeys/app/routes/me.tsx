@@ -1,0 +1,27 @@
+import { redirect } from "@mewhhaha/htmx-router";
+import { createCookie } from "../helpers/cookie";
+import type * as t from "./+types.me";
+
+export const loader = ({ request, context: [env] }: t.LoaderArgs) => {
+  const cookie = request.headers.get("Cookie") ?? "";
+  const userCookie = createCookie("user", env.SECRET_KEY);
+  const user = userCookie.parse<{ userId: string; passkeyId: string }>(cookie);
+  if (!user) {
+    throw redirect("/home");
+  }
+
+  return { user };
+};
+
+export default function Component({ loaderData: { user } }: t.ComponentProps) {
+  return (
+    <main>
+      <dl>
+        <dt>User ID</dt>
+        <dd>{user?.userId}</dd>
+        <dt>Passkey ID</dt>
+        <dd>{user?.passkeyId}</dd>
+      </dl>
+    </main>
+  );
+}

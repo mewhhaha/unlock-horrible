@@ -1,0 +1,24 @@
+{
+  "name": "@packages/auth-client",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prepublish": "pnpm -w build",
+    "build": "esbuild src/index.mts --bundle --minify --target=es2022 --format=esm --outfile=dist/pkeys.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "sideEffects": false,
+  "devDependencies": {
+    "@packages/jwt": "workspace:^",
+    "@passwordless-id/webauthn": "^2.1.2",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.4.5",
+    "wrangler": "3.102.0"
+  }
+}
