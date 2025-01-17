@@ -13,7 +13,7 @@ export default function Document({
   return (
     <html>
       <head>
-        <title>pkey.sh</title>
+        <title>passq</title>
         <meta charset="UTF-8"></meta>
         <meta
           name="viewport"

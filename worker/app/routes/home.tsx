@@ -4,7 +4,7 @@ export default function Home() {
       <header>Passwordless login</header>
       <script type="module">
         {`
-const pkeys = await import("/pkeys.mjs");
+const pkeys = await import("/pkeys");
 const client = pkeys.default();
 
 const signup = document.getElementById("signup");
