@@ -29,6 +29,7 @@ export default function Document({
           href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap"
           rel="stylesheet"
         />
+        <script type="importmap">{JSON.stringify(importMap)}</script>
         <>
           {Object.values(importMap.imports).map((src) => {
             if (src.endsWith(".js")) {

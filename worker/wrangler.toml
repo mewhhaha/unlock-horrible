@@ -1,9 +1,12 @@
 #:schema node_modules/wrangler/config-schema.json
-name = "pkeysh"
+name = "passq"
 main = "main.tsx"
 compatibility_date = "2024-10-18"
 compatibility_flags = ["nodejs_compat"]
 assets = { directory = "./dist/assets", binding = "ASSETS" }
+
+[vars]
+ORIGIN = "https://passq.dev"
 
 [[durable_objects.bindings]]
 name = "OBJECT_PASSKEY"
