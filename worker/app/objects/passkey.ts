@@ -44,7 +44,6 @@ export type Passkey = {
 export class DurableObjectPasskey extends DurableObject<Env> {
   private metadata: Metadata | undefined = undefined;
   private credential: CredentialInfo | undefined = undefined;
-  private counter: number = -1;
   private visitors: Visitor[] = [];
   private authenticator: AuthenticatorInfo | undefined = undefined;
 
@@ -53,12 +52,7 @@ export class DurableObjectPasskey extends DurableObject<Env> {
 
     void state.blockConcurrencyWhile(async () => {
       const load = async (
-        key:
-          | "metadata"
-          | "credential"
-          | "counter"
-          | "visitors"
-          | "authenticator",
+        key: "metadata" | "credential" | "visitors" | "authenticator",
       ) => {
         const value = await this.ctx.storage.get(key);
         if (value !== undefined) {
@@ -70,7 +64,6 @@ export class DurableObjectPasskey extends DurableObject<Env> {
       await Promise.all([
         load("metadata"),
         load("credential"),
-        load("counter"),
         load("visitors"),
         load("authenticator"),
       ]);
@@ -123,7 +116,7 @@ export class DurableObjectPasskey extends DurableObject<Env> {
   }
 
   async authenticate({ json, challengeId, visited }: TryAuthenticate) {
-    const { metadata, credential, counter } = await this.assertPasskey();
+    const { metadata, credential } = await this.assertPasskey();
 
     try {
       const authenticationInfo = await server.verifyAuthentication(
@@ -132,14 +125,9 @@ export class DurableObjectPasskey extends DurableObject<Env> {
         {
           origin: this.env.ORIGIN,
           challenge: encodeTrimmedBase64(challengeId),
-          counter,
           userVerified: true,
         },
       );
-
-      this.counter =
-        authenticationInfo.counter === 0 ? -1 : authenticationInfo.counter;
-      this.ctx.storage.put("counter", this.counter);
 
       const visitor = makeVisitor(visited, authenticationInfo);
       const visitors = [visitor, ...this.visitors].slice(
@@ -167,7 +155,6 @@ export class DurableObjectPasskey extends DurableObject<Env> {
     this.metadata = undefined;
     this.credential = undefined;
     this.visitors = [];
-    this.counter = -1;
 
     return metadata;
   }
@@ -175,7 +162,6 @@ export class DurableObjectPasskey extends DurableObject<Env> {
   private async assertPasskey(userId?: string) {
     const metadata = this.metadata;
     const credential = this.credential;
-    const counter = this.counter;
     const visitors = this.visitors;
     const authenticator = this.authenticator;
 
@@ -191,7 +177,7 @@ export class DurableObjectPasskey extends DurableObject<Env> {
       throw new Error("Credential missing");
     }
 
-    return { credential, metadata, userId, counter, visitors, authenticator };
+    return { credential, metadata, userId, visitors, authenticator };
   }
 
   private async assertEmpty() {

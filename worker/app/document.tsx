@@ -42,7 +42,7 @@ export default function Document({
           })}
         </>
       </head>
-      <body hx-boost="true" hx-ext="morph">
+      <body class={`bg-slate-900`} hx-boost="true" hx-ext="morph">
         {children}
       </body>
     </html>

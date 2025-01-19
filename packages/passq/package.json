@@ -1,5 +1,5 @@
 {
-  "name": "@packages/auth-client",
+  "name": "@packages/passq",
   "private": true,
   "version": "1.0.0",
   "description": "",
@@ -8,7 +8,14 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "prepublish": "pnpm -w build",
-    "build": "esbuild src/index.mts --bundle --minify --target=es2022 --format=esm --outfile=dist/pkeys.mjs"
+    "build": "esbuild src/passq.mts --legal-comments=inline --bundle --target=es2022 --format=esm --outfile=dist/passq.mjs"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./src/passq.mts"
+      }
+    }
   },
   "keywords": [],
   "author": "",

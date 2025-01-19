@@ -1,4 +1,5 @@
-import "./typed.mjs";
+import "./typed.mts";
+export type * from "./typed.mts";
 export { type JSX } from "./jsx.mts";
 
 export const Fragment = (props: any): any => jsx("", props);

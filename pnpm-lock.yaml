@@ -8,24 +8,6 @@ importers:
 
   .: {}
 
-  packages/auth-client:
-    devDependencies:
-      '@packages/jwt':
-        specifier: workspace:^
-        version: link:../jwt
-      '@passwordless-id/webauthn':
-        specifier: ^2.1.2
-        version: 2.1.2
-      esbuild:
-        specifier: ^0.24.2
-        version: 0.24.2
-      typescript:
-        specifier: ^5.4.5
-        version: 5.7.3
-      wrangler:
-        specifier: 3.102.0
-        version: 3.102.0(@cloudflare/workers-types@4.20250109.0)
-
   packages/fingerprint:
     devDependencies:
       '@types/node':
@@ -71,6 +53,24 @@ importers:
         specifier: 3.57.0
         version: 3.57.0(@cloudflare/workers-types@4.20250109.0)
 
+  packages/passq:
+    devDependencies:
+      '@packages/jwt':
+        specifier: workspace:^
+        version: link:../jwt
+      '@passwordless-id/webauthn':
+        specifier: ^2.1.2
+        version: 2.1.2
+      esbuild:
+        specifier: ^0.24.2
+        version: 0.24.2
+      typescript:
+        specifier: ^5.4.5
+        version: 5.7.3
+      wrangler:
+        specifier: 3.102.0
+        version: 3.102.0(@cloudflare/workers-types@4.20250109.0)
+
   worker:
     dependencies:
       '@passwordless-id/webauthn':
@@ -101,6 +101,9 @@ importers:
       '@packages/jwt':
         specifier: workspace:^
         version: link:../packages/jwt
+      '@packages/passq':
+        specifier: workspace:^
+        version: link:../packages/passq
       '@tailwindcss/cli':
         specifier: 4.0.0-beta.8
         version: 4.0.0-beta.8
@@ -2595,6 +2598,7 @@ packages:
   wrangler@3.102.0:
     resolution: {integrity: sha512-Za4DstbS3+/hu+///K/4dFFeV6XbPBAGp7NCnVajchxRTwEPTdbO5eezH0HLJPMHK6G/0yIzyhlEMnyg4YzHAA==}
     engines: {node: '>=16.17.0'}
+    deprecated: Downgrade to 3.99.0
     hasBin: true
     peerDependencies:
       '@cloudflare/workers-types': ^4.20241230.0

@@ -72,11 +72,10 @@ const readImportMap = (fingerprints: Record<string, string>) => {
   };
 
   for (const file in fingerprints) {
-    const name = file.split(".").slice(0, -1).join("/");
     if (dev) {
-      importMap.imports[name] = `/${file}`;
+      importMap.imports[`/${file}`] = `/${file}`;
     } else {
-      importMap.imports[name] = `/${fingerprints[file]}`;
+      importMap.imports[`/${file}`] = `/${fingerprints[file]}`;
     }
   }
 

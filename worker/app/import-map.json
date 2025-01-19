@@ -1,11 +1,11 @@
 {
   "imports": {
-    "circuit-board": "/2aa6330f95fd559d-circuit-board.svg",
-    "htmx": "/1bac1c23a4343663-htmx.js",
-    "i-like-food": "/ee242ab951e49047-i-like-food.svg",
-    "idiomorph-htmx": "/1c2037c257078cdf-idiomorph-htmx.js",
-    "idiomorph": "/d7420fb78a31518e-idiomorph.js",
-    "pkeys": "/9acf79a7111edd15-pkeys.mjs",
-    "styles": "/d7a26ed966e8b8b0-styles.css"
+    "/circuit-board.svg": "/circuit-board.svg",
+    "/htmx.js": "/htmx.js",
+    "/i-like-food.svg": "/i-like-food.svg",
+    "/idiomorph-htmx.js": "/idiomorph-htmx.js",
+    "/idiomorph.js": "/idiomorph.js",
+    "/passq.mjs": "/passq.mjs",
+    "/styles.css": "/styles.css"
   }
 }

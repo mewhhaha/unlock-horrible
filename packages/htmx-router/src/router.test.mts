@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { diff, fragment } from "./router.mjs";
+import { diff, type fragment } from "./router.mjs";
 
 const path = (val: string | undefined, params: Record<string, string> = {}) => {
   return {

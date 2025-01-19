@@ -70,6 +70,7 @@ export const action = async ({ request, context: [env] }: t.ActionArgs) => {
   const cookie = createCookie("user", env.SECRET_KEY);
 
   return redirect("/me", {
+    status: 200,
     headers: {
       "Set-Cookie": cookie.serialize({ userId, passkeyId }),
     },

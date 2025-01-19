@@ -1,7 +1,7 @@
 export const redirect = (
   location: string,
   { headers: incoming, status = 302, ...init }: ResponseInit = {},
-) => {
+): Response => {
   const headers = mergeHeaders(incoming, new Headers());
   headers.set("Location", location);
   headers.set("HX-Location", location);
@@ -17,7 +17,7 @@ export const redirect = (
 export const replace = (
   location: string,
   { headers: incoming, status = 302, ...init }: ResponseInit = {},
-) => {
+): Response => {
   const headers = mergeHeaders(incoming, new Headers());
   headers.set("Location", location);
   headers.set("HX-Location", location);
@@ -55,7 +55,7 @@ const mergeHeaders = (incoming: HeadersInit | undefined, headers: Headers) => {
 export const htmx = async (
   body: string | Promise<string>,
   { headers: incoming, status = 200 }: ResponseInit = {},
-) => {
+): Promise<Response> => {
   const headers = mergeHeaders(incoming, new Headers());
   headers.set("Content-Type", "text/html");
 
