@@ -1,11 +1,9 @@
 {
   "imports": {
-    "/circuit-board.svg": "/circuit-board.svg",
-    "/htmx.js": "/htmx.js",
-    "/i-like-food.svg": "/i-like-food.svg",
-    "/idiomorph-htmx.js": "/idiomorph-htmx.js",
-    "/idiomorph.js": "/idiomorph.js",
-    "/passq.mjs": "/passq.mjs",
-    "/styles.css": "/styles.css"
+    "/htmx.js": "/1bac1c23a4343663-htmx.js",
+    "/idiomorph-htmx.js": "/1c2037c257078cdf-idiomorph-htmx.js",
+    "/idiomorph.js": "/d7420fb78a31518e-idiomorph.js",
+    "/passkey.mjs": "/c562b7450e3e426d-passkey.mjs",
+    "/styles.css": "/4dae171cfbacacff-styles.css"
   }
 }

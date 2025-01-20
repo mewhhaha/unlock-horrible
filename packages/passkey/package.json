@@ -1,5 +1,5 @@
 {
-  "name": "@packages/passq",
+  "name": "@packages/passkey",
   "private": true,
   "version": "1.0.0",
   "description": "",
@@ -8,7 +8,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "prepublish": "pnpm -w build",
-    "build": "esbuild src/passq.mts --legal-comments=inline --bundle --target=es2022 --format=esm --outfile=dist/passq.mjs"
+    "build": "esbuild src/passkey.mts --legal-comments=inline --bundle --target=es2022 --format=esm --outfile=dist/passkey.mjs"
   },
   "exports": {
     ".": {

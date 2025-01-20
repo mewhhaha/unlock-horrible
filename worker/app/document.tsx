@@ -13,7 +13,7 @@ export default function Document({
   return (
     <html>
       <head>
-        <title>passq</title>
+        <title>Unlock example</title>
         <meta charset="UTF-8"></meta>
         <meta
           name="viewport"
@@ -41,6 +41,7 @@ export default function Document({
             return null;
           })}
         </>
+        <script type="module">{`console.debug = function(){}`}</script>
       </head>
       <body class={`bg-slate-900`} hx-boost="true" hx-ext="morph">
         {children}

@@ -3,9 +3,10 @@ import { parseVisitorHeaders } from "../../helpers/parser.js";
 import type * as t from "./+types.route.js";
 import { redirect } from "@mewhhaha/htmx-router";
 import { createCookie } from "../../helpers/cookie.js";
-import { decodeTrimmedBase64, hmac } from "@packages/jwt";
+import { decodeTrimmedBase64, encodeTrimmedBase64, hmac } from "@packages/jwt";
 import { type } from "arktype";
 import type { RegistrationJSON } from "@passwordless-id/webauthn/dist/esm/types.js";
+import { finish } from "../auth.challenge/route.js";
 
 export const action = async ({ request, context: [env] }: t.ActionArgs) => {
   if (request.method !== "POST") {
@@ -26,32 +27,30 @@ export const action = async ({ request, context: [env] }: t.ActionArgs) => {
     return new Response("token_missing", { status: 403 });
   }
 
-  const [challengeBase64, signature, registrationBase64Json] = token.split(".");
+  const [challengeId, signature, registrationBase64Json] = token.split(".");
   if (
-    challengeBase64 === undefined ||
+    challengeId === undefined ||
     signature === undefined ||
     registrationBase64Json === undefined
   ) {
     return new Response("token_invalid", { status: 403 });
   }
 
-  if (signature !== (await hmac(env.SECRET_KEY, challengeBase64))) {
+  if (
+    signature !== encodeTrimmedBase64(await hmac(env.SECRET_KEY, challengeId))
+  ) {
     return new Response("signature_invalid", { status: 403 });
   }
 
-  const challengeId = decodeTrimmedBase64(challengeBase64);
   const registrationJson = decodeTrimmedBase64(registrationBase64Json);
 
   const registration = JSON.parse(registrationJson) as RegistrationJSON;
 
-  const challenge = env.OBJECT_CHALLENGE.get(
-    env.OBJECT_CHALLENGE.idFromString(challengeId),
-  );
-
-  const finishedChallenge = await challenge.finish();
-  if (finishedChallenge.error) {
-    return new Response(finishedChallenge.message, { status: 403 });
+  const validChallenge = await finish(request, challengeId);
+  if (!validChallenge) {
+    return new Response("challenge_expired", { status: 403 });
   }
+
   try {
     const credentialId = registration.id;
     const passkey = env.OBJECT_PASSKEY.get(

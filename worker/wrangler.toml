@@ -1,12 +1,12 @@
 #:schema node_modules/wrangler/config-schema.json
-name = "passq"
+name = "unlock"
 main = "main.tsx"
 compatibility_date = "2024-10-18"
 compatibility_flags = ["nodejs_compat"]
 assets = { directory = "./dist/assets", binding = "ASSETS" }
 
 [vars]
-ORIGIN = "https://passq.dev"
+ORIGIN = "https://unlock.horrible.workers.dev"
 
 [[durable_objects.bindings]]
 name = "OBJECT_PASSKEY"
@@ -16,14 +16,7 @@ class_name = "DurableObjectPasskey"
 name = "OBJECT_USER"
 class_name = "DurableObjectUser"
 
-[[durable_objects.bindings]]
-name = "OBJECT_CHALLENGE"
-class_name = "DurableObjectChallenge"
 
 [[migrations]]
 tag = "v1"
-new_sqlite_classes = [
-    "DurableObjectPasskey",
-    "DurableObjectUser",
-    "DurableObjectChallenge",
-]
+new_sqlite_classes = ["DurableObjectPasskey", "DurableObjectUser"]

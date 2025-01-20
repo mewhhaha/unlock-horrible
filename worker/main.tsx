@@ -2,7 +2,6 @@ import type { Env } from "./app/env.mts";
 import { routes } from "./app/routes.mjs";
 import { Router } from "@mewhhaha/htmx-router";
 
-export { DurableObjectChallenge } from "./app/objects/challenge";
 export { DurableObjectPasskey } from "./app/objects/passkey";
 export { DurableObjectUser } from "./app/objects/user";
 

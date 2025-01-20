@@ -228,6 +228,7 @@ export namespace JSX {
     height?: string | undefined;
     list?: string | undefined;
     max?: string | undefined;
+    minlength?: string | undefined;
     maxlength?: string | undefined;
     method?: string | undefined;
     min?: string | undefined;
@@ -237,7 +238,7 @@ export namespace JSX {
     pattern?: string | undefined;
     placeholder?: string | undefined;
     readonly?: string | undefined;
-    required?: string | undefined;
+    required?: boolean | undefined;
     size?: string | undefined;
     src?: string | undefined;
     step?: string | undefined;

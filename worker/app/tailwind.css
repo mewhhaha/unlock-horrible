@@ -1,9 +1,4 @@
 @import "tailwindcss";
-@plugin "tailwindcss-motion";
-
-@theme {
-  --font-fancy: "EB Garamond", "serif";
-}
 
 html,
 body {

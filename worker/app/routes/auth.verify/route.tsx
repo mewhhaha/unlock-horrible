@@ -2,9 +2,10 @@ import { redirect } from "@mewhhaha/htmx-router";
 import { parseVisitorHeaders } from "../../helpers/parser.js";
 import type * as t from "./+types.route.js";
 import { createCookie } from "../../helpers/cookie.js";
-import { decodeTrimmedBase64, hmac } from "@packages/jwt";
+import { decodeTrimmedBase64, encodeTrimmedBase64, hmac } from "@packages/jwt";
 import { type } from "arktype";
 import type { AuthenticationJSON } from "@passwordless-id/webauthn/dist/esm/types.js";
+import { finish } from "../auth.challenge/route.js";
 
 export const action = async ({ request, context: [env] }: t.ActionArgs) => {
   if (request.method !== "POST") {
@@ -25,30 +26,28 @@ export const action = async ({ request, context: [env] }: t.ActionArgs) => {
     return new Response("token_missing", { status: 403 });
   }
 
-  const [challengeBase64, signature, authenticationBase64Json] =
-    token.split(".");
+  const [challengeId, signature, authenticationBase64Json] = token.split(".");
   if (
-    challengeBase64 === undefined ||
+    challengeId === undefined ||
     signature === undefined ||
     authenticationBase64Json === undefined
   ) {
     return new Response("token_invalid", { status: 403 });
   }
 
-  if (signature !== (await hmac(env.SECRET_KEY, challengeBase64))) {
+  if (
+    signature !== encodeTrimmedBase64(await hmac(env.SECRET_KEY, challengeId))
+  ) {
     return new Response("signature_invalid", { status: 403 });
   }
 
-  const challengeId = decodeTrimmedBase64(challengeBase64);
   const authenticationJson = decodeTrimmedBase64(authenticationBase64Json);
 
   const authentication = JSON.parse(authenticationJson) as AuthenticationJSON;
-  const challenge = env.OBJECT_CHALLENGE.get(
-    env.OBJECT_CHALLENGE.idFromString(challengeId),
-  );
-  const finished = await challenge.finish();
-  if (finished.error) {
-    return new Response(finished.message, { status: 403 });
+
+  const validChallenge = finish(request, challengeId);
+  if (!validChallenge) {
+    return new Response("challenge_expired", { status: 403 });
   }
 
   const passkey = env.OBJECT_PASSKEY.get(

@@ -1,9 +1,7 @@
-import type { DurableObjectChallenge } from "./objects/challenge";
 import type { DurableObjectPasskey } from "./objects/passkey";
 import type { DurableObjectUser } from "./objects/user";
 
 export interface Env {
-  OBJECT_CHALLENGE: DurableObjectNamespace<DurableObjectChallenge>;
   OBJECT_PASSKEY: DurableObjectNamespace<DurableObjectPasskey>;
   OBJECT_USER: DurableObjectNamespace<DurableObjectUser>;
   AUDIENCE: string;
@@ -13,7 +11,6 @@ export interface Env {
 }
 declare module "@mewhhaha/htmx-router" {
   interface Env {
-    OBJECT_CHALLENGE: DurableObjectNamespace<DurableObjectChallenge>;
     OBJECT_PASSKEY: DurableObjectNamespace<DurableObjectPasskey>;
     OBJECT_USER: DurableObjectNamespace<DurableObjectUser>;
     AUDIENCE: string;

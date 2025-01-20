@@ -15,7 +15,7 @@ export const loader = ({ request, context: [env] }: t.LoaderArgs) => {
 
 export default function Component({ loaderData: { user } }: t.ComponentProps) {
   return (
-    <main>
+    <main class={`mx-auto max-w-md text-white`}>
       <dl>
         <dt>User ID</dt>
         <dd>{user?.userId}</dd>

@@ -5,11 +5,11 @@ const create = (
   challengeUri: string,
 ): {
   register: (username: string) => Promise<string>;
-  signin: () => Promise<string>;
+  authenticate: () => Promise<string>;
 } => {
   let controller: AbortController;
 
-  const signin = async (): Promise<string> => {
+  const authenticate = async (): Promise<string> => {
     controller?.abort();
     controller = new AbortController();
 
@@ -75,7 +75,7 @@ const create = (
     return registrationToken;
   };
 
-  return { register, signin };
+  return { register, authenticate };
 };
 
 export { create };

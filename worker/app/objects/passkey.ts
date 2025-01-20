@@ -84,7 +84,7 @@ export class DurableObjectPasskey extends DurableObject<Env> {
         json as RegistrationJSON,
         {
           origin: this.env.ORIGIN,
-          challenge: encodeTrimmedBase64(challengeId),
+          challenge: challengeId,
         },
       );
       const metadata: Metadata = {
@@ -124,7 +124,7 @@ export class DurableObjectPasskey extends DurableObject<Env> {
         credential,
         {
           origin: this.env.ORIGIN,
-          challenge: encodeTrimmedBase64(challengeId),
+          challenge: challengeId,
           userVerified: true,
         },
       );

@@ -39,15 +39,6 @@
     "skipLibCheck": true,
     "rootDirs": ["./.router/types", "."]
   },
-  "exclude": ["test"],
-  "include": [
-    "app",
-    "src",
-    "../fingerprint/main.ts",
-    "tailwind.config.ts",
-    ".router/types/**/*",
-    "public/*.js",
-    "main.tsx",
-    "app/routes/.tsx"
-  ]
+  "exclude": ["test", "dist"],
+  "include": ["app", "main.tsx", "public"]
 }

@@ -197,10 +197,10 @@ var encodeTrimmedBase64 = (str) => {
   return base64.replace(plus, "-").replace(slash, "_").replace(equals, "");
 };
 
-// src/passq.mts
+// src/passkey.mts
 var create = (challengeUri) => {
   let controller;
-  const signin = async () => {
+  const authenticate = async () => {
     controller?.abort();
     controller = new AbortController();
     const response = await fetch(challengeUri, {
@@ -250,7 +250,7 @@ var create = (challengeUri) => {
     )}`;
     return registrationToken;
   };
-  return { register, signin };
+  return { register, authenticate };
 };
 export {
   create
