@@ -1,5 +1,7 @@
 # Unlock horrible
 
+See it in action at [https://unlock.horrible.workers.dev](https://unlock.horrible.workers.dev).
+
 Small example of implementing passkeys using durable objects. This uses the `@passwordless-id/webauthn` package that does all the heavy lifting that has to do with passkeys.
 
 ## Register flow
