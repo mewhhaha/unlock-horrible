@@ -1,11 +1,11 @@
-import { redirect } from "@mewhhaha/htmx-router";
 import { parseVisitorHeaders } from "../../helpers/parser.js";
 import type * as t from "./+types.route.js";
 import { createCookie } from "../../helpers/cookie.js";
-import { decodeTrimmedBase64, encodeTrimmedBase64, hmac } from "@packages/jwt";
 import { type } from "arktype";
 import type { AuthenticationJSON } from "@passwordless-id/webauthn/dist/esm/types.js";
 import { finish } from "../auth.challenge/route.js";
+import { hmac } from "../../helpers/crypto.js";
+import { redirect } from "../../helpers/responses.js";
 
 export const action = async ({ request, context: [env] }: t.ActionArgs) => {
   if (request.method !== "POST") {
@@ -35,13 +35,11 @@ export const action = async ({ request, context: [env] }: t.ActionArgs) => {
     return new Response("token_invalid", { status: 403 });
   }
 
-  if (
-    signature !== encodeTrimmedBase64(await hmac(env.SECRET_KEY, challengeId))
-  ) {
+  if (signature !== btoa(await hmac(env.SECRET_KEY, challengeId))) {
     return new Response("signature_invalid", { status: 403 });
   }
 
-  const authenticationJson = decodeTrimmedBase64(authenticationBase64Json);
+  const authenticationJson = atob(authenticationBase64Json);
 
   const authentication = JSON.parse(authenticationJson) as AuthenticationJSON;
 
@@ -69,7 +67,7 @@ export const action = async ({ request, context: [env] }: t.ActionArgs) => {
   const cookie = createCookie("user", env.SECRET_KEY);
 
   return redirect("/me", {
-    status: 200,
+    htmx: true,
     headers: {
       "Set-Cookie": cookie.serialize({ userId, passkeyId }),
     },

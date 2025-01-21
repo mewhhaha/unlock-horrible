@@ -1,12 +1,12 @@
 import { makePasskeyLink } from "../../objects/user.js";
 import { parseVisitorHeaders } from "../../helpers/parser.js";
 import type * as t from "./+types.route.js";
-import { redirect } from "@mewhhaha/htmx-router";
 import { createCookie } from "../../helpers/cookie.js";
-import { decodeTrimmedBase64, encodeTrimmedBase64, hmac } from "@packages/jwt";
 import { type } from "arktype";
 import type { RegistrationJSON } from "@passwordless-id/webauthn/dist/esm/types.js";
 import { finish } from "../auth.challenge/route.js";
+import { hmac } from "../../helpers/crypto.js";
+import { redirect } from "../../helpers/responses.js";
 
 export const action = async ({ request, context: [env] }: t.ActionArgs) => {
   if (request.method !== "POST") {
@@ -36,13 +36,11 @@ export const action = async ({ request, context: [env] }: t.ActionArgs) => {
     return new Response("token_invalid", { status: 403 });
   }
 
-  if (
-    signature !== encodeTrimmedBase64(await hmac(env.SECRET_KEY, challengeId))
-  ) {
+  if (signature !== btoa(await hmac(env.SECRET_KEY, challengeId))) {
     return new Response("signature_invalid", { status: 403 });
   }
 
-  const registrationJson = decodeTrimmedBase64(registrationBase64Json);
+  const registrationJson = atob(registrationBase64Json);
 
   const registration = JSON.parse(registrationJson) as RegistrationJSON;
 
@@ -86,7 +84,7 @@ export const action = async ({ request, context: [env] }: t.ActionArgs) => {
     const cookie = createCookie("user", env.SECRET_KEY);
 
     return redirect("/me", {
-      status: 200,
+      htmx: true,
       headers: {
         "Set-Cookie": cookie.serialize({
           userId: user.id.toString(),

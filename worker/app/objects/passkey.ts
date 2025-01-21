@@ -3,7 +3,6 @@ import { now } from "../helpers/time.js";
 import { server } from "@passwordless-id/webauthn";
 
 import { DurableObject } from "cloudflare:workers";
-import { encodeTrimmedBase64 } from "@packages/jwt";
 import type { Env } from "../env.mjs";
 import type {
   AuthenticationInfo,

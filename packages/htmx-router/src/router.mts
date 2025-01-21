@@ -1,6 +1,5 @@
 import { match } from "./match.mjs";
 import { type JSX } from "./runtime/jsx.mjs";
-export { redirect, replace, htmx } from "./responses.mjs";
 
 export interface Env {}
 

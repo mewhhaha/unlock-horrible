@@ -1,5 +1,5 @@
+import { hmac } from "../../helpers/crypto";
 import * as t from "./+types.route";
-import { hmac, encodeTrimmedBase64 } from "@packages/jwt";
 
 export const action = async ({
   request,
@@ -11,7 +11,7 @@ export const action = async ({
 
   const id = challenge();
 
-  const token = `${id}.${encodeTrimmedBase64(await hmac(env.SECRET_KEY, id))}`;
+  const token = `${id}.${btoa(await hmac(env.SECRET_KEY, id))}`;
 
   ctx.waitUntil(save(request, id));
 
@@ -22,7 +22,7 @@ export const action = async ({
 };
 
 const challenge = () => {
-  return encodeTrimmedBase64(crypto.randomUUID());
+  return btoa(crypto.randomUUID());
 };
 
 const save = async (request: Request, id: string) => {

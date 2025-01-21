@@ -1,5 +1,4 @@
 import { client } from "@passwordless-id/webauthn";
-import { encodeTrimmedBase64 } from "@packages/jwt";
 
 const create = (
   challengeUri: string,
@@ -34,9 +33,7 @@ const create = (
       userVerification: "required",
     });
 
-    const signinToken = `${token}.${encodeTrimmedBase64(
-      JSON.stringify(authentication),
-    )}`;
+    const signinToken = `${token}.${btoa(JSON.stringify(authentication))}`;
 
     return signinToken;
   };
@@ -68,9 +65,7 @@ const create = (
       discoverable: "required",
     });
 
-    const registrationToken = `${token}.${encodeTrimmedBase64(
-      JSON.stringify(registration),
-    )}`;
+    const registrationToken = `${token}.${btoa(JSON.stringify(registration))}`;
 
     return registrationToken;
   };

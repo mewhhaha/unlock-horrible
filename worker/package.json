@@ -24,7 +24,6 @@
     "@mewhhaha/eslint-plugin-simple-tailwind": "^0.0.12",
     "@mewhhaha/htmx-router": "workspace:^",
     "@packages/fingerprint": "workspace:^",
-    "@packages/jwt": "workspace:^",
     "@packages/passkey": "workspace:^",
     "@tailwindcss/cli": "4.0.0-beta.8",
     "@types/cookie-signature": "^1.1.2",
