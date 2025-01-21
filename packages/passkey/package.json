@@ -8,7 +8,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "prepublish": "pnpm -w build",
-    "build": "esbuild src/passkey.mts --legal-comments=inline --bundle --target=es2022 --format=esm --outfile=dist/passkey.mjs"
+    "build": "esbuild src/passkey.ts --legal-comments=inline --bundle --target=es2022 --format=iife --global-name=passkey --outfile=dist/passkey.js"
   },
   "exports": {
     ".": {

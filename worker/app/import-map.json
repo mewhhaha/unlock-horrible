@@ -1,9 +1,0 @@
-{
-  "imports": {
-    "/htmx.js": "/1bac1c23a4343663-htmx.js",
-    "/idiomorph-htmx.js": "/1c2037c257078cdf-idiomorph-htmx.js",
-    "/idiomorph.js": "/d7420fb78a31518e-idiomorph.js",
-    "/passkey.mjs": "/c562b7450e3e426d-passkey.mjs",
-    "/styles.css": "/4dae171cfbacacff-styles.css"
-  }
-}

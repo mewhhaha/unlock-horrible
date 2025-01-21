@@ -1,11 +1,13 @@
-import { redirect } from "@mewhhaha/htmx-router";
 import { createCookie } from "../helpers/cookie";
+import { redirect } from "../helpers/responses";
 import type * as t from "./+types.me";
 
-export const loader = ({ request, context: [env] }: t.LoaderArgs) => {
+export const loader = async ({ request, context: [env] }: t.LoaderArgs) => {
   const cookie = request.headers.get("Cookie") ?? "";
   const userCookie = createCookie("user", env.SECRET_KEY);
-  const user = userCookie.parse<{ userId: string; passkeyId: string }>(cookie);
+  const user = await userCookie.parse<{ userId: string; passkeyId: string }>(
+    cookie,
+  );
   if (!user) {
     throw redirect("/home");
   }

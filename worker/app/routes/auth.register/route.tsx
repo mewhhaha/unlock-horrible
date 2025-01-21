@@ -1,8 +1,7 @@
 import { makePasskeyLink } from "../../objects/user.js";
-import { parseVisitorHeaders } from "../../helpers/parser.js";
+import { extractVisitorHeaders } from "../../helpers/headers.js";
 import type * as t from "./+types.route.js";
 import { createCookie } from "../../helpers/cookie.js";
-import { type } from "arktype";
 import type { RegistrationJSON } from "@passwordless-id/webauthn/dist/esm/types.js";
 import { finish } from "../auth.challenge/route.js";
 import { hmac } from "../../helpers/crypto.js";
@@ -13,10 +12,8 @@ export const action = async ({ request, context: [env] }: t.ActionArgs) => {
     return new Response("Method not allowed", { status: 405 });
   }
 
-  const visitorHeaders = parseVisitorHeaders(
-    Object.fromEntries(request.headers.entries()),
-  );
-  if (visitorHeaders instanceof type.errors) {
+  const visitorHeaders = extractVisitorHeaders(request.headers);
+  if (!visitorHeaders) {
     // Not sure this can happen
     return new Response("visitor_headers_invalid", { status: 403 });
   }
@@ -86,7 +83,7 @@ export const action = async ({ request, context: [env] }: t.ActionArgs) => {
     return redirect("/me", {
       htmx: true,
       headers: {
-        "Set-Cookie": cookie.serialize({
+        "Set-Cookie": await cookie.serialize({
           userId: user.id.toString(),
           passkeyId: passkey.id.toString(),
         }),

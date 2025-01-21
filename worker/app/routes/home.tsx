@@ -1,16 +1,9 @@
 export default function Home() {
-  // Fake value
-  let create: (value: string) => {
-    register: (username: string) => Promise<string>;
-    authenticate: () => Promise<string>;
-  };
-
   return (
     <div>
       <script type="module">
-        {`import { create } from "/passkey.mjs";`}
         {f(async () => {
-          const passkey = create("/auth/challenge");
+          const { authenticate, register } = passkey.create("/auth/challenge");
 
           const registerForm = document.getElementById("register-form");
           const registerButton = registerForm?.querySelector("button");
@@ -36,7 +29,7 @@ export default function Home() {
             event.preventDefault();
             const valid = registerForm.reportValidity();
             if (valid) {
-              const token = await passkey.register(registerUsername.value);
+              const token = await register(registerUsername.value);
               registerToken.value = token;
               registerForm.requestSubmit();
             }
@@ -56,7 +49,7 @@ export default function Home() {
           }
           verifyButton.addEventListener("click", async (event) => {
             event.preventDefault();
-            const token = await passkey.authenticate();
+            const token = await authenticate();
             verifyToken.value = token;
             verifyForm.requestSubmit();
           });

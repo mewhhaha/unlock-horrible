@@ -1,8 +1,8 @@
-import { type Credential, type VisitedHeaders } from "../helpers/parser.js";
+import { type VisitedHeaders } from "../helpers/headers.js";
 import { now } from "../helpers/time.js";
 import { server } from "@passwordless-id/webauthn";
-
 import { DurableObject } from "cloudflare:workers";
+
 import type { Env } from "../env.mjs";
 import type {
   AuthenticationInfo,

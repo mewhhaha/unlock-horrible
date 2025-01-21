@@ -1,10 +1,12 @@
-import cookieSignature from "cookie-signature";
 import cookie from "cookie";
+import { hmac } from "./crypto";
 
 export const createCookie = (name: string, secret: string) => {
   return {
-    serialize: (value: unknown) => {
-      const signed = cookieSignature.sign(JSON.stringify(value), secret);
+    serialize: async (value: unknown) => {
+      const encodedValue = btoa(JSON.stringify(value));
+      const signature = btoa(await hmac(secret, encodedValue));
+      const signed = `${encodedValue}.${signature}`;
       return cookie.serialize(name, signed, {
         httpOnly: true,
         secure: true,
@@ -13,16 +15,21 @@ export const createCookie = (name: string, secret: string) => {
         maxAge: 60 * 60 * 24 * 30,
       });
     },
-    parse: <T>(value: string) => {
+    parse: async <T>(value: string) => {
       const { [name]: parsed } = cookie.parse(value);
       if (!parsed) {
         return null;
       }
-      const unsigned = cookieSignature.unsign(parsed, secret);
-      if (!unsigned) {
+      const [encodedValue, signature] = value.split(".");
+      if (!encodedValue || !signature) {
         return null;
       }
-      return JSON.parse(unsigned) as T;
+
+      if (signature !== btoa(await hmac(secret, encodedValue))) {
+        return null;
+      }
+
+      return JSON.parse(atob(encodedValue)) as T;
     },
   };
 };

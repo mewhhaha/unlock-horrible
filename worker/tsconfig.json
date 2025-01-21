@@ -40,5 +40,5 @@
     "rootDirs": ["./.router/types", "."]
   },
   "exclude": ["test", "dist"],
-  "include": ["app", "main.tsx", "public"]
+  "include": ["app", "main.tsx", "app/assets"]
 }

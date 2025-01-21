@@ -1,6 +1,6 @@
 import { client } from "@passwordless-id/webauthn";
 
-const create = (
+export const create = (
   challengeUri: string,
 ): {
   register: (username: string) => Promise<string>;
@@ -72,5 +72,3 @@ const create = (
 
   return { register, authenticate };
 };
-
-export { create };

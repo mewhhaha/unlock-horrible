@@ -1,5 +1,10 @@
-import * as t from "./+types.root";
-import importMap from "./import-map.json";
+import type * as t from "./+types.root";
+
+const htmxUrl = new URL("./assets/htmx.js", import.meta.url);
+const idiomorphUrl = new URL("./assets/idiomorph.js", import.meta.url);
+const idiomorphHtmxUrl = new URL("./assets/idiomorph-htmx.js", import.meta.url);
+const passkeyUrl = new URL("./assets/passkey.js", import.meta.url);
+const stylesUrl = new URL("./assets/styles.css", import.meta.url);
 
 export const headers = ({ headers }: t.HeadersArgs) => {
   headers.set("strict-transport-security", "max-age=31536000");
@@ -29,18 +34,11 @@ export default function Document({
           href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap"
           rel="stylesheet"
         />
-        <script type="importmap">{JSON.stringify(importMap)}</script>
-        <>
-          {Object.values(importMap.imports).map((src) => {
-            if (src.endsWith(".js")) {
-              return <script src={src}></script>;
-            }
-            if (src.endsWith(".css")) {
-              return <link rel="stylesheet" href={src} />;
-            }
-            return null;
-          })}
-        </>
+        <script src={htmxUrl.pathname}></script>
+        <script src={idiomorphUrl.pathname}></script>
+        <script src={idiomorphHtmxUrl.pathname}></script>
+        <script src={passkeyUrl.pathname}></script>
+        <link rel="stylesheet" href={stylesUrl.pathname} />
         <script type="module">{`console.debug = function(){}`}</script>
       </head>
       <body class={`bg-slate-900`} hx-boost="true" hx-ext="morph">
