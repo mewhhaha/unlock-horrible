@@ -257,7 +257,9 @@ var passkey = (() => {
         user: username,
         challenge,
         userVerification: "required",
-        discoverable: "required"
+        discoverable: "required",
+        timeout: 6e4,
+        attestation: true
       });
       const registrationToken = `${token}.${btoa(JSON.stringify(registration))}`;
       return registrationToken;

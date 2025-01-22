@@ -63,6 +63,8 @@ export const create = (
       challenge,
       userVerification: "required",
       discoverable: "required",
+      timeout: 60000,
+      attestation: true,
     });
 
     const registrationToken = `${token}.${btoa(JSON.stringify(registration))}`;

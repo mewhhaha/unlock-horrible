@@ -3,6 +3,7 @@ import { redirect } from "../helpers/responses";
 import type * as t from "./+types.me";
 
 export const loader = async ({ request, context: [env] }: t.LoaderArgs) => {
+  console.log("hello?");
   const cookie = request.headers.get("Cookie") ?? "";
   const userCookie = createCookie("user", env.SECRET_KEY);
   const user = await userCookie.parse<{ userId: string; passkeyId: string }>(
@@ -18,6 +19,7 @@ export const loader = async ({ request, context: [env] }: t.LoaderArgs) => {
 export default function Component({ loaderData: { user } }: t.ComponentProps) {
   return (
     <main class={`mx-auto max-w-md text-white`}>
+      <h1>Passkey information</h1>
       <dl>
         <dt>User ID</dt>
         <dd>{user?.userId}</dd>

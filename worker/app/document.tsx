@@ -4,7 +4,7 @@ const htmxUrl = new URL("./assets/htmx.js", import.meta.url);
 const idiomorphUrl = new URL("./assets/idiomorph.js", import.meta.url);
 const idiomorphHtmxUrl = new URL("./assets/idiomorph-htmx.js", import.meta.url);
 const passkeyUrl = new URL("./assets/passkey.js", import.meta.url);
-const stylesUrl = new URL("./assets/styles.css", import.meta.url);
+const stylesUrl = new URL("./assets/tailwind.css", import.meta.url);
 
 export const headers = ({ headers }: t.HeadersArgs) => {
   headers.set("strict-transport-security", "max-age=31536000");

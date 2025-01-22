@@ -4,8 +4,8 @@ import { hmac } from "./crypto";
 export const createCookie = (name: string, secret: string) => {
   return {
     serialize: async (value: unknown) => {
-      const encodedValue = btoa(JSON.stringify(value));
-      const signature = btoa(await hmac(secret, encodedValue));
+      const encodedValue = encode(JSON.stringify(value));
+      const signature = encode(await hmac(secret, encodedValue));
       const signed = `${encodedValue}.${signature}`;
       return cookie.serialize(name, signed, {
         httpOnly: true,
@@ -20,16 +20,19 @@ export const createCookie = (name: string, secret: string) => {
       if (!parsed) {
         return null;
       }
-      const [encodedValue, signature] = value.split(".");
+      const [encodedValue, signature] = parsed.split(".");
       if (!encodedValue || !signature) {
         return null;
       }
 
-      if (signature !== btoa(await hmac(secret, encodedValue))) {
+      if (signature !== encode(await hmac(secret, encodedValue))) {
         return null;
       }
 
-      return JSON.parse(atob(encodedValue)) as T;
+      return JSON.parse(decode(encodedValue)) as T;
     },
   };
 };
+
+const encode = (value: string) => btoa(value);
+const decode = (value: string) => atob(value);
