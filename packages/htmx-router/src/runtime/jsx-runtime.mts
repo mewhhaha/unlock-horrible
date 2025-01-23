@@ -56,12 +56,7 @@ export function jsx(
         return;
       }
 
-      if (typeof child === "string") {
-        html += escapeHtml(child);
-        return;
-      }
-
-      html += child.toString();
+      html += escapeHtml(child.toString());
     };
 
     await rec(children);
