@@ -5,7 +5,8 @@ import { createCookie } from "../../helpers/cookie.js";
 import type { RegistrationJSON } from "@passwordless-id/webauthn/dist/esm/types.js";
 import { finish } from "../auth.challenge/route.js";
 import { hmac } from "../../helpers/crypto.js";
-import { redirect } from "../../helpers/responses.js";
+import { redirect, htmx } from "../../helpers/responses.js";
+import { invariant } from "../../helpers/invariant.js";
 
 export const action = async ({ request, context: [env] }: t.ActionArgs) => {
   if (request.method !== "POST") {
@@ -89,8 +90,26 @@ export const action = async ({ request, context: [env] }: t.ActionArgs) => {
         }),
       },
     });
-  } catch (error) {
-    console.error(error);
-    return new Response("registration_failed", { status: 403 });
+  } catch (e) {
+    const message = e instanceof Error ? e.message : "Unknown error";
+    const currentUrl = request.headers.get("hx-current-url")?.toString();
+    invariant(currentUrl, "Missing current url");
+
+    const headers = new Headers();
+    headers.set("HX-Reswap", "none");
+    headers.set("HX-Replace-Url", currentUrl);
+
+    return await htmx(
+      <p id="error" hx-swap-oob="true" class="text-red-300">
+        {message}
+      </p>,
+      {
+        headers: {
+          "hx-reswap": "none",
+          "hx-replace-url":
+            request.headers.get("hx-current-url")?.toString() ?? "",
+        },
+      },
+    );
   }
 };

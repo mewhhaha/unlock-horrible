@@ -2,7 +2,6 @@ import { defineConfig } from "rolldown";
 import { Scanner } from "@tailwindcss/oxide";
 import { compile } from "@tailwindcss/node";
 import FastGlob from "fast-glob";
-import path from "node:path";
 
 export default defineConfig({
   input: ["./main.tsx"],
@@ -17,7 +16,6 @@ export default defineConfig({
     dir: "dist",
     format: "esm",
   },
-
   plugins: [
     {
       renderChunk: (chunk) => {

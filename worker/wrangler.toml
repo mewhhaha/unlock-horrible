@@ -1,8 +1,8 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "unlock"
 main = "./dist/main.js"
-build.command = "pnpm build"
-build.watch_dir = "app"
+build.watch_dir = "dist"
+
 compatibility_date = "2024-10-18"
 compatibility_flags = ["nodejs_compat"]
 assets = { directory = "./dist/", binding = "ASSETS" }

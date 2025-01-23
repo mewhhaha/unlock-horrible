@@ -1,3 +1,5 @@
+import type { JSX } from "@mewhhaha/htmx-router/jsx-runtime";
+
 export const redirect = (
   location: string,
   {
@@ -73,7 +75,7 @@ const mergeHeaders = (incoming: HeadersInit | undefined, headers: Headers) => {
 };
 
 export const htmx = async (
-  body: string | Promise<string>,
+  body: JSX.SingleElement,
   { headers: incoming, status = 200 }: ResponseInit = {},
 ): Promise<Response> => {
   const headers = mergeHeaders(incoming, new Headers());

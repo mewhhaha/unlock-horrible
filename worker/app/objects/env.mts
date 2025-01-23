@@ -1,5 +1,5 @@
-import type { DurableObjectPasskey } from "./objects/passkey";
-import type { DurableObjectUser } from "./objects/user";
+import type { DurableObjectPasskey } from "./passkey";
+import type { DurableObjectUser } from "./user";
 
 export interface Env {
   OBJECT_PASSKEY: DurableObjectNamespace<DurableObjectPasskey>;

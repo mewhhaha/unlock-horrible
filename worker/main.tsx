@@ -1,4 +1,4 @@
-import type { Env } from "./app/env.mts";
+import type { Env } from "./app/objects/env.mts";
 import { routes } from "./app/routes.mjs";
 import { Router } from "@mewhhaha/htmx-router";
 
@@ -10,7 +10,7 @@ const router = Router(routes);
 const handler: ExportedHandler<Env> = {
   fetch: async (request, env, ctx) => {
     const response = await router.handle(request, env, ctx);
-    if (response.headers.get("HX-Reswap")) {
+    if (response.headers.get("HX-Reswap") === "outerHTML") {
       response.headers.set("HX-Reswap", "morph:outerHTML show:no-scroll");
     }
     return response;

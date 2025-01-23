@@ -1,5 +1,5 @@
 import { DurableObject, RpcTarget } from "cloudflare:workers";
-import type { Env } from "../env.mts";
+import type { Env } from "./env.mts";
 
 type PasskeyLink = {
   name: string;

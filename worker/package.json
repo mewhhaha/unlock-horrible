@@ -4,13 +4,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "deploy": "rimraf dist/assets && wrangler deploy",
+    "deploy": "rimraf dist/assets && pnpm build && wrangler deploy",
     "test": "vitest",
     "cf-typegen": "wrangler types",
     "typecheck": "tsc -p tsconfig.json",
     "routes": "fs-routes ./app",
     "build": "NODE_ENV=production rolldown -c ./rolldown.config.js --minify",
-    "dev": "wrangler dev --live-reload"
+    "dev": "run-p dev.rebuild dev.wrangler",
+    "dev.wrangler": "wrangler dev --live-reload",
+    "dev.rebuild": "rolldown -c ./rolldown.config.js --minify --watch"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250121.0",
