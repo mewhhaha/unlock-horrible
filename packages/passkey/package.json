@@ -13,7 +13,8 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./src/passq.mts"
+        "import": "./src/passkey.ts",
+        "types": "./src/passkey.ts"
       }
     }
   },
