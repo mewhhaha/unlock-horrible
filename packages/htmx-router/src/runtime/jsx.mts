@@ -1,91 +1,93 @@
+import type { Html } from "./node.mts";
+
 export namespace JSX {
   export interface HtmxExtensions extends HtmxBuiltinExtensions {}
 
   // typed-html
   export interface HtmlTag extends HtmxAttributes {}
   export interface HtmlBodyTag {
-    onAfterprint?: ((event: Event) => void) | undefined | string;
-    onBeforeprint?: ((event: Event) => void) | undefined | string;
-    onBeforeonload?: ((event: Event) => void) | undefined | string;
-    onBlur?: ((event: Event) => void) | undefined | string;
-    onError?: ((event: Event) => void) | undefined | string;
-    onFocus?: ((event: Event) => void) | undefined | string;
-    onHaschange?: ((event: Event) => void) | undefined | string;
-    onLoad?: ((event: Event) => void) | undefined | string;
-    onMessage?: ((event: Event) => void) | undefined | string;
-    onOffline?: ((event: Event) => void) | undefined | string;
-    onOnline?: ((event: Event) => void) | undefined | string;
-    onPagehide?: ((event: Event) => void) | undefined | string;
-    onPageshow?: ((event: Event) => void) | undefined | string;
-    onPopstate?: ((event: Event) => void) | undefined | string;
-    onRedo?: ((event: Event) => void) | undefined | string;
-    onResize?: ((event: Event) => void) | undefined | string;
-    onStorage?: ((event: Event) => void) | undefined | string;
-    onUndo?: ((event: Event) => void) | undefined | string;
-    onUnload?: ((event: Event) => void) | undefined | string;
+    onAfterprint?: undefined | string;
+    onBeforeprint?: undefined | string;
+    onBeforeonload?: undefined | string;
+    onBlur?: undefined | string;
+    onError?: undefined | string;
+    onFocus?: undefined | string;
+    onHaschange?: undefined | string;
+    onLoad?: undefined | string;
+    onMessage?: undefined | string;
+    onOffline?: undefined | string;
+    onOnline?: undefined | string;
+    onPagehide?: undefined | string;
+    onPageshow?: undefined | string;
+    onPopstate?: undefined | string;
+    onRedo?: undefined | string;
+    onResize?: undefined | string;
+    onStorage?: undefined | string;
+    onUndo?: undefined | string;
+    onUnload?: undefined | string;
   }
   export interface HtmlTag {
-    onContextmenu?: ((event: Event) => void) | undefined | string;
-    onKeydown?: ((event: Event) => void) | undefined | string;
-    onKeypress?: ((event: Event) => void) | undefined | string;
-    onKeyup?: ((event: Event) => void) | undefined | string;
-    onClick?: ((event: Event) => void) | undefined | string;
-    onDblclick?: ((event: Event) => void) | undefined | string;
-    onDrag?: ((event: Event) => void) | undefined | string;
-    onDragend?: ((event: Event) => void) | undefined | string;
-    onDragenter?: ((event: Event) => void) | undefined | string;
-    onDragleave?: ((event: Event) => void) | undefined | string;
-    onDragover?: ((event: Event) => void) | undefined | string;
-    onDragstart?: ((event: Event) => void) | undefined | string;
-    onDrop?: ((event: Event) => void) | undefined | string;
-    onMousedown?: ((event: Event) => void) | undefined | string;
-    onMousemove?: ((event: Event) => void) | undefined | string;
-    onMouseout?: ((event: Event) => void) | undefined | string;
-    onMouseover?: ((event: Event) => void) | undefined | string;
-    onMouseup?: ((event: Event) => void) | undefined | string;
-    onMousewheel?: ((event: Event) => void) | undefined | string;
-    onScroll?: ((event: Event) => void) | undefined | string;
+    onContextmenu?: undefined | string;
+    onKeydown?: undefined | string;
+    onKeypress?: undefined | string;
+    onKeyup?: undefined | string;
+    onClick?: undefined | string;
+    onDblclick?: undefined | string;
+    onDrag?: undefined | string;
+    onDragend?: undefined | string;
+    onDragenter?: undefined | string;
+    onDragleave?: undefined | string;
+    onDragover?: undefined | string;
+    onDragstart?: undefined | string;
+    onDrop?: undefined | string;
+    onMousedown?: undefined | string;
+    onMousemove?: undefined | string;
+    onMouseout?: undefined | string;
+    onMouseover?: undefined | string;
+    onMouseup?: undefined | string;
+    onMousewheel?: undefined | string;
+    onScroll?: undefined | string;
   }
   export interface FormEvents {
-    onBlur?: ((event: Event) => void) | undefined | string;
-    onChange?: ((event: Event) => void) | undefined | string;
-    onFocus?: ((event: Event) => void) | undefined | string;
-    onFormchange?: ((event: Event) => void) | undefined | string;
-    onForminput?: ((event: Event) => void) | undefined | string;
-    onInput?: ((event: Event) => void) | undefined | string;
-    onInvalid?: ((event: Event) => void) | undefined | string;
-    onSelect?: ((event: Event) => void) | undefined | string;
-    onSubmit?: ((event: Event) => void) | undefined | string;
+    onBlur?: undefined | string;
+    onChange?: undefined | string;
+    onFocus?: undefined | string;
+    onFormchange?: undefined | string;
+    onForminput?: undefined | string;
+    onInput?: undefined | string;
+    onInvalid?: undefined | string;
+    onSelect?: undefined | string;
+    onSubmit?: undefined | string;
   }
   export interface HtmlInputTag extends FormEvents {
-    onChange?: ((event: Event) => void) | undefined | string;
+    onChange?: undefined | string;
   }
   export interface HtmlFieldSetTag extends FormEvents {}
   export interface HtmlFormTag extends FormEvents {}
   export interface MediaEvents {
-    onAbort?: ((event: Event) => void) | undefined | string;
-    onCanplay?: ((event: Event) => void) | undefined | string;
-    onCanplaythrough?: ((event: Event) => void) | undefined | string;
-    onDurationchange?: ((event: Event) => void) | undefined | string;
-    onEmptied?: ((event: Event) => void) | undefined | string;
-    onEnded?: ((event: Event) => void) | undefined | string;
-    onError?: ((event: Event) => void) | undefined | string;
-    onLoadeddata?: ((event: Event) => void) | undefined | string;
-    onLoadedmetadata?: ((event: Event) => void) | undefined | string;
-    onLoadstart?: ((event: Event) => void) | undefined | string;
-    onPause?: ((event: Event) => void) | undefined | string;
-    onPlay?: ((event: Event) => void) | undefined | string;
-    onPlaying?: ((event: Event) => void) | undefined | string;
-    onProgress?: ((event: Event) => void) | undefined | string;
-    onRatechange?: ((event: Event) => void) | undefined | string;
-    onReadystatechange?: ((event: Event) => void) | undefined | string;
-    onSeeked?: ((event: Event) => void) | undefined | string;
-    onSeeking?: ((event: Event) => void) | undefined | string;
-    onStalled?: ((event: Event) => void) | undefined | string;
-    onSuspend?: ((event: Event) => void) | undefined | string;
-    onTimeupdate?: ((event: Event) => void) | undefined | string;
-    onVolumechange?: ((event: Event) => void) | undefined | string;
-    onWaiting?: ((event: Event) => void) | undefined | string;
+    onAbort?: undefined | string;
+    onCanplay?: undefined | string;
+    onCanplaythrough?: undefined | string;
+    onDurationchange?: undefined | string;
+    onEmptied?: undefined | string;
+    onEnded?: undefined | string;
+    onError?: undefined | string;
+    onLoadeddata?: undefined | string;
+    onLoadedmetadata?: undefined | string;
+    onLoadstart?: undefined | string;
+    onPause?: undefined | string;
+    onPlay?: undefined | string;
+    onPlaying?: undefined | string;
+    onProgress?: undefined | string;
+    onRatechange?: undefined | string;
+    onReadystatechange?: undefined | string;
+    onSeeked?: undefined | string;
+    onSeeking?: undefined | string;
+    onStalled?: undefined | string;
+    onSuspend?: undefined | string;
+    onTimeupdate?: undefined | string;
+    onVolumechange?: undefined | string;
+    onWaiting?: undefined | string;
   }
   export interface HtmlAudioTag extends MediaEvents {}
   export interface HtmlEmbedTag extends MediaEvents {}
@@ -441,7 +443,7 @@ export namespace JSX {
   }
 
   export type Element = SingleElement;
-  export type SingleElement = Promise<string> | string | undefined | null;
+  export type SingleElement = Promise<Html> | string | undefined | null;
 
   export interface ElementChildrenAttribute {
     children?: Element | Element[];

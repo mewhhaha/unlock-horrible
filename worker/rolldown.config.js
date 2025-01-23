@@ -2,6 +2,7 @@ import { defineConfig } from "rolldown";
 import { Scanner } from "@tailwindcss/oxide";
 import { compile } from "@tailwindcss/node";
 import FastGlob from "fast-glob";
+import fs from "fs/promises";
 
 export default defineConfig({
   input: ["./main.tsx"],
@@ -43,6 +44,14 @@ export default defineConfig({
           return compiler.build(candidates);
         }
         return;
+      },
+    },
+    {
+      buildEnd: async (err) => {
+        if (!err) {
+          // Clean up the assets so we don't increase the amount of assets over time
+          await fs.rm("./dist/assets", { recursive: true, force: true });
+        }
       },
     },
   ],

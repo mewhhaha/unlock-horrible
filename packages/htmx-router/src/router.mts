@@ -1,5 +1,6 @@
 import { match } from "./match.mjs";
 import { type JSX } from "./runtime/jsx.mjs";
+import { into } from "./runtime/node.mts";
 
 export interface Env {}
 
@@ -186,18 +187,26 @@ const routeResponse = async (
 
   const write = async () => {
     let html = target === undefined ? "<!doctype html>" : "";
-    const render = fragments.reduceRight(async (curr, next, i) => {
-      const loaderData = loaders[i];
-      const parent = fragments[i - 1]?.id ?? partials[partials.length - 1]?.id;
-      const Component = next.mod.default;
-      let t = await (Component?.({ loaderData, children: curr }) ?? curr);
-      if (parent && typeof t === "string") {
-        t = t.replace(/^(<[a-z]+)/, `$1 data-children="${parent}"`);
-      }
-      return t;
-    }, Promise.resolve(""));
+    const node = fragments.reduceRight(
+      async (curr, next, i) => {
+        const loaderData = loaders[i];
+        const parent =
+          fragments[i - 1]?.id ?? partials[partials.length - 1]?.id;
+        const Component = next.mod.default;
+        let t = await (Component?.({ loaderData, children: curr }) ?? curr);
+        if (typeof t === "string") {
+          return into(t);
+        }
 
-    html += await render;
+        if (parent && typeof t.text[0] === "string") {
+          t.text = t.text.replace(/^(<[a-z]+)/, `$1 data-children="${parent}"`);
+        }
+        return t;
+      },
+      Promise.resolve(into("")),
+    );
+
+    html += (await node)?.toString();
 
     if (deferred.length > 0) {
       html += `<template hx-swap="none">`;

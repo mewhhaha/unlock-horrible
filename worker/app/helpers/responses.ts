@@ -81,7 +81,7 @@ export const htmx = async (
   const headers = mergeHeaders(incoming, new Headers());
   headers.set("Content-Type", "text/html");
 
-  return new Response(await body, {
+  return new Response((await body)?.toString(), {
     status,
     headers,
   });

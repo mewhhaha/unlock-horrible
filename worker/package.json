@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "deploy": "rimraf dist/assets && pnpm build && wrangler deploy",
+    "deploy": "pnpm build && wrangler deploy",
     "test": "vitest",
     "cf-typegen": "wrangler types",
     "typecheck": "tsc -p tsconfig.json",
@@ -32,8 +32,7 @@
     "npm-run-all": "^4.1.5",
     "oxlint": "^0.15.7",
     "prettier": "^3.4.2",
-    "rimraf": "^6.0.1",
-    "rolldown": "1.0.0-beta.2-commit.f069c5d",
+    "rolldown": "1.0.0-beta.2-commit.5deb279",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.21.0",

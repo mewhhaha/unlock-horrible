@@ -1,4 +1,6 @@
+import { into, isHtml, type Html } from "./node.mts";
 import "./typed.mts";
+import type { JSX } from "./typed.mts";
 export type * from "./typed.mts";
 export { type JSX } from "./jsx.mts";
 
@@ -7,7 +9,7 @@ export const Fragment = (props: any): any => jsx("", props);
 export function jsx(
   tag: string | Function,
   { children, ...props }: { children?: unknown } & Record<string, any>,
-): any {
+): Promise<Html> {
   if (typeof tag === "function") {
     return tag({ children, ...props });
   }
@@ -16,14 +18,6 @@ export function jsx(
   for (const key in props) {
     let value = props[key];
 
-    if (typeof value === "function" && key.match(/^on[A-Z]/)) {
-      value = `(${value.toString()})`;
-      if (value.includes("this")) {
-        value = value + ".bind(this)";
-      }
-      value = value + "(event)";
-    }
-
     const sanitized = sanitize(value);
     if (sanitized === undefined) {
       continue;
@@ -31,18 +25,24 @@ export function jsx(
     attrs += ` ${key}="${sanitized}" `;
   }
 
-  const f = async (): Promise<string> => {
+  const f = async (): Promise<Html> => {
     let html = "";
     if (tag) {
-      html = `<${tag}${attrs}>`;
+      html += `<${tag}${attrs}>`;
     }
 
     const rec = async (child: unknown) => {
       if (child === undefined || child === null || child === false) {
         return;
       }
+      if (isHtml(child)) {
+        html += child.text;
+        return;
+      }
       if (Array.isArray(child)) {
-        for (const c of child) {
+        for (let i = 0; i < child.length; i++) {
+          const c = child[i];
+
           await rec(c);
         }
         return;
@@ -56,6 +56,11 @@ export function jsx(
         return;
       }
 
+      if (typeof child === "string") {
+        html += escapeHtml(child);
+        return;
+      }
+
       html += child.toString();
     };
 
@@ -65,10 +70,19 @@ export function jsx(
       html += `</${tag}>`;
     }
 
-    return html;
+    return into(html);
   };
 
   return f();
+}
+
+export function escapeHtml(input: string): string {
+  return input
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 const sanitize = (value: any) => {
@@ -84,7 +98,7 @@ const sanitize = (value: any) => {
   }
 };
 
-export function jsxs(tag: any, props: any): Element {
+export function jsxs(tag: any, props: any): JSX.Element {
   return jsx(tag, props);
 }
 
