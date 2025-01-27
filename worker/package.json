@@ -15,7 +15,7 @@
     "dev.rebuild": "rolldown -c ./rolldown.config.js --minify --watch"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250121.0",
+    "@cloudflare/workers-types": "^4.20250124.3",
     "@mewhhaha/eslint-plugin-simple-tailwind": "^0.0.12",
     "@mewhhaha/htmx-router": "workspace:^",
     "@packages/passkey": "workspace:^",
@@ -23,21 +23,21 @@
     "@tailwindcss/node": "^4.0.0",
     "@tailwindcss/oxide": "^4.0.0",
     "@tailwindcss/vite": "^4.0.0",
-    "@types/node": "^22.10.2",
+    "@types/node": "^22.10.10",
     "esbuild": "^0.24.2",
-    "eslint": "^9.17.0",
-    "eslint-plugin-oxlint": "^0.15.7",
+    "eslint": "^9.19.0",
+    "eslint-plugin-oxlint": "^0.15.8",
     "fast-glob": "^3.3.3",
     "lightningcss": "^1.29.1",
     "npm-run-all": "^4.1.5",
-    "oxlint": "^0.15.7",
+    "oxlint": "^0.15.8",
     "prettier": "^3.4.2",
-    "rolldown": "1.0.0-beta.2-commit.5deb279",
+    "rolldown": "1.0.0-beta.3",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.21.0",
-    "vitest": "^3.0.3",
-    "wrangler": "^3.103.2"
+    "vitest": "^3.0.4",
+    "wrangler": "^3.105.1"
   },
   "dependencies": {
     "@passwordless-id/webauthn": "^2.1.2",

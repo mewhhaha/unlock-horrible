@@ -4,17 +4,11 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "prepublish": "pnpm -w build",
-    "build": "esbuild src/passkey.ts --legal-comments=inline --bundle --target=es2022 --format=iife --global-name=passkey --outfile=dist/passkey.js"
-  },
   "exports": {
     ".": {
       "import": {
-        "import": "./src/passkey.ts",
-        "types": "./src/passkey.ts"
+        "import": "./src/passkey.mts",
+        "types": "./src/passkey.mts"
       }
     }
   },

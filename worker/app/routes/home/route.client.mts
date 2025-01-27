@@ -1,9 +1,11 @@
-const { authenticate, register } = passkey.create("/auth/challenge");
+import { authenticate, register } from "@packages/passkey";
 
+const challengeUri = "/auth/challenge";
 const registerForm = document.getElementById("register-form");
 const registerButton = registerForm?.querySelector("button");
 const registerToken = registerForm?.querySelector("input[name=token]");
 const registerUsername = registerForm?.querySelector("input[name=username]");
+
 if (!(registerForm instanceof HTMLFormElement)) {
   throw new Error('Missing form with id "register-form"');
 }
@@ -21,7 +23,7 @@ registerButton.addEventListener("click", async (event) => {
   event.preventDefault();
   const valid = registerForm.reportValidity();
   if (valid) {
-    const token = await register(registerUsername.value);
+    const token = await register(challengeUri, registerUsername.value);
     registerToken.value = token;
     registerForm.requestSubmit();
   }
@@ -42,7 +44,7 @@ if (!(verifyToken instanceof HTMLInputElement)) {
 
 verifyButton.addEventListener("click", async (event) => {
   event.preventDefault();
-  const token = await authenticate();
+  const token = await authenticate(challengeUri);
   verifyToken.value = token;
   verifyForm.requestSubmit();
 });

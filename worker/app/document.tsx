@@ -3,7 +3,6 @@ import type * as t from "./+types.root";
 const htmxUrl = new URL("./assets/htmx.js", import.meta.url);
 const idiomorphUrl = new URL("./assets/idiomorph.js", import.meta.url);
 const idiomorphHtmxUrl = new URL("./assets/idiomorph-htmx.js", import.meta.url);
-const passkeyUrl = new URL("./assets/passkey.js", import.meta.url);
 const stylesUrl = new URL("./assets/tailwind.css", import.meta.url);
 
 export const headers = ({ headers }: t.HeadersArgs) => {
@@ -37,7 +36,6 @@ export default function Document({
         <script src={htmxUrl.pathname}></script>
         <script src={idiomorphUrl.pathname}></script>
         <script src={idiomorphHtmxUrl.pathname}></script>
-        <script src={passkeyUrl.pathname}></script>
         <link rel="stylesheet" href={stylesUrl.pathname} />
         <script type="module">{`console.debug = function(){}`}</script>
       </head>

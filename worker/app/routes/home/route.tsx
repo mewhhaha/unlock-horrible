@@ -1,4 +1,4 @@
-const client = new URL("./home.client.mjs", import.meta.url);
+const client = new URL("./route.client.mjs", import.meta.url);
 
 export default function Home() {
   return (
