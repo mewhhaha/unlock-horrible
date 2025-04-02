@@ -4,7 +4,7 @@
     /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "target": "ESNext",
     /* Specify a set of bundled library declaration files that describe the target runtime environment. */
-    "lib": ["ESNext", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
+    "lib": ["ESNext", "DOM.Iterable", "DOM.AsyncIterable"],
     /* Specify what JSX code is generated. */
     "jsx": "react-jsx",
     "allowImportingTsExtensions": true,

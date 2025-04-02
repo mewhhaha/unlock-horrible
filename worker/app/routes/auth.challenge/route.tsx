@@ -39,7 +39,7 @@ export const finish = async (request: Request, id: string) => {
   const url = new URL(`/${id}`, new URL(request.url).origin);
   const key = new Request(url);
   const cache = await caches.open("challenge");
-  const valid = null !== (await cache.match(key));
+  const valid = (await cache.match(key)) instanceof Response;
 
   if (valid) {
     await cache.delete(key);
